@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import React from 'react';
 import NextLink from 'next/link';
 import Controller from '../__mocks__/products';

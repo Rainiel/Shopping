@@ -1,11 +1,9 @@
-import Head from 'next/head';
 import React from 'react';
 import NextLink from 'next/link';
 import { Box, Container, Button } from '@mui/material';
 import { PurchaseListToolbar } from '../components/purchasehistory/purchasehistory-list-toolbar';
 import { PurchaseListResults } from '../components/purchasehistory/purchasehistory-list-results';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { customers } from '../__mocks__/customers';
 import Controller from '../__mocks__/products';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 

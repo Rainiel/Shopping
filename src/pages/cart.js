@@ -1,14 +1,11 @@
-import Head from 'next/head';
 import React from 'react';
 import NextLink from 'next/link';
 import { Box, Container, Button } from '@mui/material';
 import { CartListResults } from '../components/cart/cart-list-results';
 import { CartListToolbar } from '../components/cart/cart-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { customers } from '../__mocks__/customers';
 import Controller from '../__mocks__/products';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 
 const Cart = () => {
   const [cart, setCart] = React.useState([]);

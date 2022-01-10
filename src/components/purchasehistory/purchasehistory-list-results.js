@@ -1,12 +1,8 @@
 import { useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import PropTypes from 'prop-types';
-import { format } from 'date-fns';
 import {
-  Avatar,
   Box,
   Card,
-  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -15,8 +11,6 @@ import {
   TableRow,
   Typography
 } from '@mui/material';
-import Button from '@mui/material/Button';
-import { getInitials } from '../../utils/get-initials';
 
 export const PurchaseListResults = ({ history, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);

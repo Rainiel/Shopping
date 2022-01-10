@@ -1,21 +1,9 @@
 import React, { useState } from 'react';
-import NextLink from 'next/link';
-import Controller from '../../__mocks__/products';
-import excel from 'xlsx';
 import {
   Box,
-  Button,
   Typography,
-  Grid, Card, CardContent, Avatar
+  Grid, Card, Avatar
 } from '@mui/material';
-import { Download as DownloadIcon } from '../../icons/download';
-import { Search as SearchIcon } from '../../icons/search';
-import { Upload as UploadIcon } from '../../icons/upload';
-import IconButton from '@mui/material/IconButton';
-import { styled } from '@mui/material/styles';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import HistoryIcon from '@mui/icons-material/History';
-import Badge from '@mui/material/Badge';
 
 export const ProductCategory = (props) => {
 
@@ -73,7 +61,6 @@ export const ProductCategory = (props) => {
                     >
                       {category}
                     </Typography>
-                    {/* <Box sx={{ flexGrow: 1 }} /> */}
                   </Box>
                 </Card>
               </Grid>

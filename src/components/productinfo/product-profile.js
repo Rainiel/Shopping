@@ -21,16 +21,8 @@ export const ProductProfile = (props) => (
             >
                 <Avatar
                     alt="Product"
-                    // src={product.media}
                     variant="square"
                 />
-                {/* <Typography
-                    color="textPrimary"
-                    gutterBottom
-                    variant="h5"
-                >
-                    {props.product.display_name}
-                </Typography> */}
             </Box>
         </CardContent>
         <Divider />

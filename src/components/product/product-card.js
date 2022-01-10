@@ -1,10 +1,6 @@
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { Avatar, Box, Card, CardContent, Divider, Grid, Typography, Button } from '@mui/material';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { Clock as ClockIcon } from '../../icons/clock';
-import { Download as DownloadIcon } from '../../icons/download';
 import Controller from '../../__mocks__/products';
 
 export const ProductCard = ({ product, setCartCount, ...rest }) => {
@@ -48,7 +44,6 @@ export const ProductCard = ({ product, setCartCount, ...rest }) => {
         >
           <Avatar
             alt="Product"
-            src={product.media}
             variant="square"
           />
         </Box>

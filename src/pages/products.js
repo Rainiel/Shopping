@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import React from 'react';
 import Controller from '../__mocks__/products';
 import { Box, Container, Grid, Pagination, Button, Typography } from '@mui/material';
@@ -11,7 +10,6 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 
 const Products = () => {
-  const [columns, setColumns] = React.useState([]);
   const [brands, setBrands] = React.useState([]);
   const [category, setCategory] = React.useState([]);
   const [products, setProducts] = React.useState([]);

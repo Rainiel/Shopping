@@ -1,7 +1,3 @@
-import { v4 as uuid } from 'uuid';
-import React, { useState } from 'react';
-
-// export const productsContext = React.createContext({}); //Initialise
 
 export default class Controller {
   static instance = null;

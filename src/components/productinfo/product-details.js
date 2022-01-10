@@ -1,14 +1,9 @@
-import { useState } from 'react';
 import {
   Avatar,
   Box,
   Button,
   Card,
-  CardContent,
-  CardHeader,
   Divider,
-  Grid,
-  TextField,
   Typography
 } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -120,7 +115,6 @@ export const ProductDetails = ({ product, ...rest }) => {
             }}>
               <Avatar
                 alt="Product"
-                // src={product.media}
                 variant="square"
                 sx={{
                   mr: 2
@@ -128,7 +122,6 @@ export const ProductDetails = ({ product, ...rest }) => {
               />
               <Avatar
                 alt="Product"
-                // src={product.media}
                 variant="square"
                 sx={{
                   mr: 2
@@ -136,7 +129,6 @@ export const ProductDetails = ({ product, ...rest }) => {
               />
               <Avatar
                 alt="Product"
-                // src={product.media}
                 variant="square"
                 sx={{
                   mr: 2
@@ -144,7 +136,6 @@ export const ProductDetails = ({ product, ...rest }) => {
               />
               <Avatar
                 alt="Product"
-                // src={product.media}
                 variant="square"
                 sx={{
                   mr: 2
@@ -152,7 +143,6 @@ export const ProductDetails = ({ product, ...rest }) => {
               />
               <Avatar
                 alt="Product"
-                // src={product.media}
                 variant="square"
                 sx={{
                   mr: 2
@@ -160,7 +150,6 @@ export const ProductDetails = ({ product, ...rest }) => {
               />
               <Avatar
                 alt="Product"
-                // src={product.media}
                 variant="square"
                 sx={{
                   mr: 2
@@ -173,7 +162,6 @@ export const ProductDetails = ({ product, ...rest }) => {
         <Box
           sx={{
             display: 'flex',
-            // justifyContent: 'flex-end',
             p: 2
           }}
         >
