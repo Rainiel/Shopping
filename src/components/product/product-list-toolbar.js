@@ -115,12 +115,6 @@ export const ProductListToolbar = (props) => {
           >
             Import
           </Button>
-          {/* <Button
-            startIcon={(<DownloadIcon fontSize="small" />)}
-            sx={{ mr: 1 }}
-          >
-            Export
-          </Button> */}
           <NextLink
             href={"/cart"}
             passHref
@@ -142,7 +136,9 @@ export const ProductListToolbar = (props) => {
               startIcon={(<HistoryIcon fontSize="small" />)}
               sx={{ mr: 1 }}
             >
-              Purchase History
+              <Badge badgeContent={props.purchaseCount} color="primary">
+                Purchase History
+              </Badge>
             </Button>
           </NextLink>
         </Box>

@@ -22,24 +22,28 @@ export const ProductCard = ({ product, setCartCount, ...rest }) => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100%'
+        height: '100%',
+        px: 2,
+        pt: 2
       }}
       {...rest}
     >
-      <CardContent>
-        <Button
-          endIcon={(<AddShoppingCartIcon fontSize='small' />)}
-          sx={{ mr: 1 }}
-          onClick={addToCart}
+      <Box sx={{ paddingBottom: 1 }}>
+        <Typography
+          align="center"
+          color="textPrimary"
+          variant="body1"
         >
-          Add
-        </Button>
-
+          {product.display_name}
+        </Typography>
+      </Box>
+      <Box sx={{ flexGrow: 1 }} />
+      <Divider />
+      <CardContent>
         <Box
           sx={{
             display: 'flex',
             justifyContent: 'center',
-            pb: 3
           }}
         >
           <Avatar
@@ -48,40 +52,24 @@ export const ProductCard = ({ product, setCartCount, ...rest }) => {
             variant="square"
           />
         </Box>
-        {/* <Typography
-        align="center"
-        color="textPrimary"
-        gutterBottom
-        variant="h8"
-      >
-        {product.brand}
-      </Typography> */}
-        <Typography
-          align="center"
-          color="textPrimary"
-          variant="body1"
-        >
-          {product.display_name}
-        </Typography>
       </CardContent>
-      <Box sx={{ flexGrow: 1 }} />
       <Divider />
-      <Box sx={{ p: 2 }}>
+      <Box>
         <Grid
           container
-          spacing={2}
+          // spacing={2}
           sx={{ justifyContent: 'space-between' }}
         >
           <Grid
             item
             sx={{
               alignItems: 'center',
-              display: 'flex'
+              display: 'flex',
+              p: 1
             }}
           >
-            {/* <ClockIcon color="action" /> */}
             <Typography
-              color="textSecondary"
+              color="textPrimary"
               display="inline"
               sx={{ pl: 1 }}
               variant="body2"
@@ -98,15 +86,36 @@ export const ProductCard = ({ product, setCartCount, ...rest }) => {
           >
             {"₱"}
             <Typography
-              color="textSecondary"
+              color="textPrimary"
               display="inline"
-              sx={{ pl: 1 }}
-              variant="body2"
+              sx={{ pr: 1 }}
+              variant="body1"
             >
               {product.price}
             </Typography>
           </Grid>
         </Grid>
+        <Divider />
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'inline',
+          p: 1
+        }}>
+          <NextLink
+            href={{ pathname: '/productinfo', query: btoa(product.id) }}
+            passHref
+          >
+            <Button>
+              View
+            </Button>
+          </NextLink>
+          <Box sx={{ flexGrow: 1 }} />
+          <Button
+            onClick={addToCart}
+          >
+            Add to cart
+          </Button>
+        </Box>
       </Box>
     </Card>
   )

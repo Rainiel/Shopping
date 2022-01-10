@@ -14,6 +14,7 @@ const Products = () => {
   const [category, setCategory] = React.useState([]);
   const [products, setProducts] = React.useState([]);
   const [cartCount, setCartCount] = React.useState(0);
+  const [purchaseCount, setPurchaseCount] = React.useState(0);
   const [page, setPage] = React.useState(0);
   const [pageCount, setPageCount] = React.useState(1);
   const [selectedBrands, setSelectedBrands] = React.useState([]);
@@ -78,6 +79,10 @@ const Products = () => {
       setCartCount(instance.getCart().length);
     }
 
+    if (instance.getPurchaseHistory().length > 0) {
+      setPurchaseCount(instance.getPurchaseHistory().length);
+    }
+
     setSelectedBrands(instance.getSelectedBrandFilter());
     setSelectedCategory(instance.getSelectedCategoryFilter());
 
@@ -108,7 +113,8 @@ const Products = () => {
         <ProductListToolbar
           setProductState={setProductState}
           productsLength={products.length}
-          cartCount={cartCount} />
+          cartCount={cartCount}
+          purchaseCount={purchaseCount} />
         <Box sx={{ pt: 3 }}>
           <Grid
             container
