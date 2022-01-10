@@ -9,12 +9,30 @@ export default class Controller {
   products = [];
   cart = [];
   purchaseHistory = [];
+  selectedBrandFilter = [];
+  selectedCategoryFilter = [];
 
   static getInstance() {
     if (Controller.instance == null) {
       Controller.instance = new Controller();
     }
     return Controller.instance;
+  }
+
+  getSelectedBrandFilter() {
+    return this.selectedBrandFilter;
+  }
+
+  setSelectedBrandFilter(brands) {
+    this.selectedBrandFilter = brands;
+  }
+
+  getSelectedCategoryFilter() {
+    return this.selectedCategoryFilter;
+  }
+
+  setSelectedCategoryFilter(category) {
+    this.selectedCategoryFilter = category;
   }
 
   getPurchaseHistory() {

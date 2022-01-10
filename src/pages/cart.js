@@ -59,8 +59,11 @@ const Cart = () => {
 
   const handleBuySelectedItem = () => {
     selectedCartIds.map((itemId) => {
-      handleBuyProduct(cart.find(({ id }) => id === itemId));
+      const item = cart.find(({ id }) => id === itemId);
+      instance.purchaseProduct(item);
+      instance.removeFromCart(item);
     });
+    setCart(cart.filter(item => !selectedCartIds.includes(item.id)));
     setSelectedCartIds([]);
   }
 

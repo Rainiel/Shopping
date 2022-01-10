@@ -41,8 +41,10 @@ const Products = () => {
     }));
     setBrands([...brands, ...initBrands]);
     setCategory([...category, ...initCategory]);
-    setSelectedBrands(initBrands);
-    setSelectedCategory(initCategory);
+    setSelectedBrands([...selectedBrands, ...initBrands]);
+    setSelectedCategory([...selectedCategory, ...initCategory]);
+    instance.setSelectedBrandFilter(initBrands);
+    instance.setSelectedCategoryFilter(initCategory);
     instance.addProducts(list);
     eventBus.dispatch("filterData", { brands: initBrands, category: initCategory });
   }
@@ -70,13 +72,14 @@ const Products = () => {
     setProducts(savedProduct.filter((product) => selectedBrands.some(o2 => product.brand === o2)).filter((product) => selectedCategory.some(o2 => product.category === o2)));
   }, [selectedBrands, selectedCategory]);
 
-
   React.useEffect(() => {
-    setProducts(instance.getProducts());
+    setProducts(instance.getProducts().filter((product) => instance.getSelectedBrandFilter().some(o2 => product.brand === o2)).filter((product) => instance.getSelectedCategoryFilter().some(o2 => product.category === o2)));
     if (instance.getCart().length > 0) {
       setCartCount(instance.getCart().length);
     }
 
+    setSelectedBrands(instance.getSelectedBrandFilter());
+    setSelectedCategory(instance.getSelectedCategoryFilter());
 
     eventBus.on("selectedBrands", (data) => {
       setSelectedBrands(data);
@@ -85,6 +88,11 @@ const Products = () => {
     eventBus.on("selectedCategory", (data) => {
       setSelectedCategory(data);
     });
+
+    return function cleanupListener() {
+      eventBus.remove("selectedBrands");
+      eventBus.remove("selectedCategory");
+    }
   }, []);
 
   return <>

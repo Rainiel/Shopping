@@ -20,7 +20,7 @@ const Purchasehistory = () => {
     instance.getPurchaseHistory().map((val, i) => {
       price = price + parseFloat(val.price);
     });
-    setTotalSpent(price);
+    setTotalSpent(Math.round(price * 100) / 100);
   }
 
   React.useEffect(() => {

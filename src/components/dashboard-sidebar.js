@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
+import Controller from '../__mocks__/products';
 import PropTypes from 'prop-types';
 import { Box, Button, Divider, Drawer, Typography, useMediaQuery, FormControlLabel, Checkbox, Collapse, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
@@ -70,6 +71,8 @@ export const DashboardSidebar = (props) => {
     noSsr: false
   });
 
+  const instance = Controller.getInstance();
+
   const [brands, setBrands] = React.useState([]);
   const [category, setCategory] = React.useState([]);
   const [selectedBrands, setSelectedBrands] = React.useState([]);
@@ -105,6 +108,7 @@ export const DashboardSidebar = (props) => {
     }
     setSelectedBrands(newSelectedBrand);
     eventBus.dispatch("selectedBrands", newSelectedBrand);
+    instance.setSelectedBrandFilter(newSelectedBrand);
   };
 
   const handleCategoryFilter = (brand) => {
@@ -125,17 +129,19 @@ export const DashboardSidebar = (props) => {
     }
     setSelectedCategory(newSelectedCategory);
     eventBus.dispatch("selectedCategory", newSelectedCategory);
+    instance.setSelectedCategoryFilter(newSelectedCategory);
   };
 
   useEffect(
     () => {
-      eventBus.on("filterData", (data) => {
-        setBrands(data.brands);
-        setSelectedBrands(data.brands);
-        setCategory(data.category);
-        setSelectedCategory(data.category);
+
+      if (instance.getSelectedBrandFilter().lenght > 0) {
+        setSelectedBrands(instance.getSelectedBrandFilter());
       }
-      );
+
+      if (instance.getSelectedCategoryFilter().lenght > 0) {
+        setSelectedCategory(instance.getSelectedCategoryFilter());
+      }
 
       if (!router.isReady) {
         return;
@@ -148,6 +154,28 @@ export const DashboardSidebar = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [router.asPath]
   );
+
+  useEffect(
+    () => {
+      eventBus.on("filterData", (data) => {
+        setBrands(data.brands);
+        setSelectedBrands(data.brands);
+        setCategory(data.category);
+        setSelectedCategory(data.category);
+      });
+
+      if (instance.getSelectedBrandFilter().lenght > 0) {
+        setSelectedBrands(instance.getSelectedBrandFilter());
+      }
+
+      if (instance.getSelectedCategoryFilter().lenght > 0) {
+        setSelectedCategory(instance.getSelectedCategoryFilter());
+      }
+
+      return function cleanupListener() {
+        eventBus.remove("filterData");
+      }
+    }, []);
 
   const navItems = () => {
     return items.map((item, i) => {
