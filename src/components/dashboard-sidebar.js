@@ -77,6 +77,7 @@ export const DashboardSidebar = (props) => {
   const [category, setCategory] = React.useState([]);
   const [selectedBrands, setSelectedBrands] = React.useState([]);
   const [selectedCategory, setSelectedCategory] = React.useState([]);
+  const [selectedFilterCategory, setSelectedFilterCategory] = React.useState(null);
 
   const [collapseBrands, setCollapseBrands] = React.useState(false);
   const handleClickBrands = () => {
@@ -162,6 +163,10 @@ export const DashboardSidebar = (props) => {
         setSelectedCategory(data.category);
       });
 
+      eventBus.on("selectedFilterCategory", (data) => {
+        setSelectedFilterCategory(data);
+      });
+
       if (instance.getSelectedBrandFilter().lenght > 0) {
         setSelectedBrands(instance.getSelectedBrandFilter());
       }
@@ -172,6 +177,7 @@ export const DashboardSidebar = (props) => {
 
       return function cleanupListener() {
         eventBus.remove("filterData");
+        eventBus.remove("selectedFilterCategory");
       }
     }, []);
 
@@ -230,38 +236,45 @@ export const DashboardSidebar = (props) => {
                 my: 1
               }}
             />
-            <ListItemButton onClick={handleClickCategory}>
-              <ListItemText primary="Category" />
-              {collapseCategory ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={collapseCategory}
-              timeout="auto"
-              unmountOnExit>
-              <Box sx={{
-                display: 'flex',
-                flexDirection: 'column',
-              }}>
-                {category.map((val, i) => {
-                  return <FormControlLabel
-                    key={i}
-                    control={(
-                      <Checkbox
-                        color="primary"
-                        onChange={() => handleCategoryFilter(val)}
-                        checked={selectedCategory.includes(val)}
+            {selectedFilterCategory == null ?
+              <>
+                <ListItemButton onClick={handleClickCategory}>
+                  <ListItemText primary="Category" />
+                  {collapseCategory ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
+                <Collapse in={collapseCategory}
+                  timeout="auto"
+                  unmountOnExit>
+                  <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                  }}>
+                    {category.map((val, i) => {
+                      return <FormControlLabel
+                        key={i}
+                        control={(
+                          <Checkbox
+                            color="primary"
+                            onChange={() => handleCategoryFilter(val)}
+                            checked={selectedCategory.includes(val)}
+                          />
+                        )}
+                        label={val}
                       />
-                    )}
-                    label={val}
-                  />
-                })}
-              </Box>
-            </Collapse>
-            <Divider
-              sx={{
-                borderColor: '#2D3748',
-                my: 1
-              }}
-            />
+                    })}
+                  </Box>
+                </Collapse>
+                <Divider
+                  sx={{
+                    borderColor: '#2D3748',
+                    my: 1
+                  }}
+                />
+              </>
+              :
+              <Box></Box>
+            }
+
           </Box>
         </Box>
       } else {

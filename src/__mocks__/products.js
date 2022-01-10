@@ -8,15 +8,33 @@ export default class Controller {
 
   products = [];
   cart = [];
+  category = [];
   purchaseHistory = [];
   selectedBrandFilter = [];
   selectedCategoryFilter = [];
+  selectedBoxCategory = null;
 
   static getInstance() {
     if (Controller.instance == null) {
       Controller.instance = new Controller();
     }
     return Controller.instance;
+  }
+
+  getCategory() {
+    return this.category;
+  }
+
+  setCategory(category) {
+    this.category = category;
+  }
+
+  getSelectedBoxCategory() {
+    return this.selectedBoxCategory;
+  }
+
+  setSelectedBoxCategory(category) {
+    this.selectedBoxCategory = category;
   }
 
   getSelectedBrandFilter() {

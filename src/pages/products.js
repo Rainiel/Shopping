@@ -1,11 +1,13 @@
 import Head from 'next/head';
 import React from 'react';
 import Controller from '../__mocks__/products';
-import { Box, Container, Grid, Pagination } from '@mui/material';
+import { Box, Container, Grid, Pagination, Button, Typography } from '@mui/material';
 import { ProductListToolbar } from '../components/product/product-list-toolbar';
+import { ProductCategory } from '../components/product/product-category';
 import { ProductCard } from '../components/product/product-card';
 import { DashboardLayout } from '../components/dashboard-layout';
 import eventBus from "../utils/eventBus";
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 
 const Products = () => {
@@ -19,8 +21,15 @@ const Products = () => {
   const [pageCount, setPageCount] = React.useState(1);
   const [selectedBrands, setSelectedBrands] = React.useState([]);
   const [selectedCategory, setSelectedCategory] = React.useState([]);
+  const [selectedFilterCategory, setSelectedFilterCategory] = React.useState(null);
 
   const instance = Controller.getInstance();
+
+  const handleSelectedFilterCategory = (category) => {
+    setSelectedFilterCategory(category);
+    instance.setSelectedBoxCategory(category);
+    eventBus.dispatch("selectedFilterCategory", category);
+  }
 
   const handleCbCartCount = () => {
     setCartCount(cartCount + 1);
@@ -47,6 +56,7 @@ const Products = () => {
     instance.setSelectedBrandFilter(initBrands);
     instance.setSelectedCategoryFilter(initCategory);
     instance.addProducts(list);
+    instance.setCategory(initCategory);
     eventBus.dispatch("filterData", { brands: initBrands, category: initCategory });
   }
 
@@ -70,8 +80,12 @@ const Products = () => {
 
   React.useEffect(() => {
     const savedProduct = instance.getProducts();
-    setProducts(savedProduct.filter((product) => selectedBrands.some(o2 => product.brand === o2)).filter((product) => selectedCategory.some(o2 => product.category === o2)));
-  }, [selectedBrands, selectedCategory]);
+    if (selectedFilterCategory != null) {
+      setProducts(savedProduct.filter((product) => selectedBrands.some(o2 => product.brand === o2)).filter((product) => selectedFilterCategory == product.category));
+    } else {
+      setProducts(savedProduct.filter((product) => selectedBrands.some(o2 => product.brand === o2)).filter((product) => selectedCategory.some(o2 => product.category === o2)));
+    }
+  }, [selectedBrands, selectedCategory, selectedFilterCategory]);
 
   React.useEffect(() => {
     setProducts(instance.getProducts().filter((product) => instance.getSelectedBrandFilter().some(o2 => product.brand === o2)).filter((product) => instance.getSelectedCategoryFilter().some(o2 => product.category === o2)));
@@ -85,6 +99,8 @@ const Products = () => {
 
     setSelectedBrands(instance.getSelectedBrandFilter());
     setSelectedCategory(instance.getSelectedCategoryFilter());
+    setSelectedFilterCategory(instance.getSelectedBoxCategory());
+    setCategory(instance.getCategory());
 
     eventBus.on("selectedBrands", (data) => {
       setSelectedBrands(data);
@@ -110,6 +126,29 @@ const Products = () => {
       }}
     >
       <Container maxWidth={false}>
+        {selectedFilterCategory == null ?
+          <ProductCategory category={category} handleSelectedFilterCategory={handleSelectedFilterCategory} />
+          :
+          <Box sx={{
+            display: 'flex',
+            flexDirection: 'inline',
+            alignItems: 'center'
+          }}>
+            <Button
+              startIcon={(<ChevronLeftIcon fontSize="small" />)}
+              sx={{ mr: 2 }}
+              onClick={() => handleSelectedFilterCategory(null)}
+            >
+              See All Category
+            </Button>
+            <Typography
+              color="textPrimary"
+              variant="h5"
+            >
+              {selectedFilterCategory}
+            </Typography>
+          </Box>
+        }
         <ProductListToolbar
           setProductState={setProductState}
           productsLength={products.length}

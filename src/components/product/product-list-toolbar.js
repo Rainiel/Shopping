@@ -49,12 +49,6 @@ export const ProductListToolbar = (props) => {
       }
     }
 
-    // prepare columns list from headers
-    const columns = headers.map(c => ({
-      name: c,
-      selector: c,
-    }));
-
     props.setProductState(list);
   }
 
